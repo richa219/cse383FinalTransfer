@@ -16,6 +16,12 @@ $('.collapses').on('show.bs.collapse', '.collapse', function () {
     });
 });
 
+$('#weatherWeekList').css('height', `${~~(screen.availHeight / 2.2)}px`);
+$(window).resize(function() {
+    $('#weatherWeekList').css('height', `${~~(screen.availHeight / 2.2)}px`);
+    // console.log('working');
+});
+
 //Stops the calculator from reloading the page if it is submitted via pressing enter
 $('#calcForm').submit(function () {
     submitCalculation();
@@ -112,7 +118,8 @@ function submitZip() {
             $('#weatherWeekList').html("");
             daily.forEach(day => {
                 let date = new Date(day.dt * 1000);
-                $('#weatherWeekList').append(`<div class="col-5 col-sm-3 col-md-3 col-lg-3 outlined text-body"><img src="https://openweathermap.org/img/wn/${day.weather[0].icon}.png" width="30px">${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}</div>`);
+                console.log(day);
+                $('#weatherWeekList').append(`<li class="list-group-item bg-transparent text-body"><div class="row justify-content-around"><div class="col margined">${dayToDay(date.getDay())} (${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()})</div><div class="col text-right margined">${toFahrenheit(day.temp.max)}°-${toFahrenheit(day.temp.min)}°F<img src="https://openweathermap.org/img/wn/${day.weather[0].icon}.png" width="30px">></div</div></li>`);
             });
             $('#weatherResults').show();
         }).fail(function(err) {            
@@ -121,6 +128,29 @@ function submitZip() {
         $('#weatherWeekList').html(`Please make sure that the zip code is correct`);
         $('#weatherResults').show();
     });
+}
+
+function dayToDay(num) {
+    switch(num) {
+        case 0:
+            return "Sun"
+        case 1:
+            return "Mon"
+        case 2:
+            return "Tue"
+        case 3:
+            return "Wed"
+        case 4:
+            return "Thu"
+        case 5:
+            return "Fri"
+        default:
+            return "Sat"
+    }
+}
+
+function toFahrenheit(num) {
+    return Math.floor((num - 273.15) * 9 / 5 + 32);
 }
 
 function submitSensorUpdate() {

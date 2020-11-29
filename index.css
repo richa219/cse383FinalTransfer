@@ -10,6 +10,10 @@ body {
     margin-top: 8px;
 }
 
+.margined {
+    padding: 0;
+}
+
 th, td {
     padding: 1px;
     margin: 1px;
@@ -27,6 +31,11 @@ th, td {
 
 .form-control::-ms-input-placeholder { /* Microsoft Edge */
     color: white;
+}
+
+.list-group {
+    margin: 0;
+    padding: 0;
 }
 
 .outlined {

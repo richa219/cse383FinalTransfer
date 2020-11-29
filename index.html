@@ -120,7 +120,11 @@
                                 </div>
                             </form>
                             <div class="spaced" id="weatherResults" style="display: none;">
-                                <div class="row justify-content-center" id="weatherWeekList"></div>
+                                <div class="row justify-content-center" id="weatherResize">
+                                    <ul class="list-group overflow-auto bg-transparent" id="weatherWeekList">
+
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                         <div class="collapse" id="sensorUpdateCollapse">
@@ -130,10 +134,10 @@
                                         <input type="text" class="form-control bg-transparent text-white" id="sensorLocation" placeholder="Location">
                                     </div>
                                     <div class="col">
-                                        <input type="number" class="form-control bg-transparent text-white" id="sensor" placeholder="Sensor" min="1" max="9">
+                                        <input type="number" class="form-control bg-transparent text-white" id="sensor" placeholder="Sensor" min="1" max="9" step="1">
                                     </div>
                                     <div class="col">
-                                        <input type="number" class="form-control bg-transparent text-white" id="sensorValue" placeholder="Value">
+                                        <input type="number" class="form-control bg-transparent text-white" id="sensorValue" placeholder="Value" step="0.01">
                                     </div>
                                 </div>
                                 <div class="row justify-content-center spaced">
