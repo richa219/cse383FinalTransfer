@@ -7,7 +7,7 @@ var apiKEY = "bed859b37ac6f1dd59387829a18db84c22ac99c09ee0f5fb99cb708364858818";
 var openWeatherKey = "3a3799bbc1479a3f68aed6fd29f75ac4";
 
 for (let n = 1; n < 100; n++) {
-    $('#updateQuantity').append(`<option>${n}</option>`);
+    $('#updateQuantity').append(`<option class="text-dark">${n}</option>`);
 }
 
 $('.collapses').on('show.bs.collapse', '.collapse', function () {
