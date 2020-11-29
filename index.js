@@ -71,15 +71,21 @@ function submitCalculation() {
             op = "Add"
             break;
     }
-    $.ajax({
-        url: `${calcURL}${op}?api_key=${apiKEY}&n1=${$('#firstNum').val()}&n2=${$('#secondNum').val()}`,
-        method: 'GET'
-    }).done(function (data) {
-        // console.log(data);
-        $('#calcResult').html(`${$('#firstNum').val()} ${$('#operation').val()} ${$('#secondNum').val()} = ${data.result}`);
-    }).fail(function (err) {
-        console.log(err);
-    });
+    if ($('#secondNum').val() == "0") {
+        $('#calculateError').show()
+    } else {
+        $.ajax({
+            url: `${calcURL}${op}?api_key=${apiKEY}&n1=${$('#firstNum').val()}&n2=${$('#secondNum').val()}`,
+            method: 'GET'
+        }).done(function (data) {
+            // console.log(data);
+            $('#calculateError').hide()
+            $('#calcResult').html(`${$('#firstNum').val()} ${$('#operation').val()} ${$('#secondNum').val()} = ${data.result}`);
+        }).fail(function (err) {
+            console.log(err);
+            
+        });
+    }
 }
 
 function submitZip() {
@@ -104,7 +110,7 @@ function submitZip() {
             $('#weatherWeekList').html("");
             daily.forEach(day => {
                 let date = new Date(day.dt * 1000);
-                $('#weatherWeekList').append(`<div class="col-5 col-sm-3 col-md-3 col-lg-3 outlined"><img src="https://openweathermap.org/img/wn/${day.weather[0].icon}.png" width="30px">${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}</div>`);
+                $('#weatherWeekList').append(`<div class="col-5 col-sm-3 col-md-3 col-lg-3 outlined text-body"><img src="https://openweathermap.org/img/wn/${day.weather[0].icon}.png" width="30px">${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}</div>`);
             });
             $('#weatherResults').show();
         }).fail(function(err) {            
@@ -117,21 +123,28 @@ function submitZip() {
 
 function submitSensorUpdate() {
     // Make sure that the value of sensor is a positive integer
-    if (Number.isInteger(Number($('#sensor').val())) && Number($('#sensor').val()) >= 0) {
-        $.ajax({
-            url: `${sensorURL}?api_key=${apiKEY}&userid=richa219&location=${$('#sensorLocation').val()}&sensor=${$('#sensor').val()}&value=${$('#sensorValue').val()}`,
-            method: 'GET'
-        }).done(function(data) {
-            // console.log(data);
+    if (Number.isInteger(Number($('#sensor').val())) && Number($('#sensor').val()) >= 1 && Number($('#sensor').val()) <= 9) {
+        if ($('#sensorLocation').val() == "" || $('#sensorValue').val() == "") {
             $('#toggleButtonSensor').show()
-            $('#sensorStatus').text(data.status);
-            $('#sensorMessage').text(data.message);
-        }).fail(function(err) {
-            console.log(err);
-        });
+            $('#sensorStatus').text("1");
+            $('#sensorMessage').text("Make sure all fields are filled in");
+        } else {
+            $.ajax({
+                url: `${sensorURL}?api_key=${apiKEY}&userid=richa219&location=${$('#sensorLocation').val()}&sensor=${$('#sensor').val()}&value=${$('#sensorValue').val()}`,
+                method: 'GET'
+            }).done(function(data) {
+                $('#toggleButtonSensor').show()
+                $('#sensorStatus').text(data.status);
+                $('#sensorMessage').text(data.message);
+            }).fail(function(err) {
+                console.log(err);
+                console.log('failed');
+            });
+        }
     } else {
-        // console.log('bad num');
-        // console.log($('#sensor').val());
+        $('#toggleButtonSensor').show()
+        $('#sensorStatus').text("1");
+        $('#sensorMessage').text("Make sure that the sensor number is between 1-9");
     }
 }
 
@@ -154,7 +167,11 @@ function submitSensorReport() {
     }).done(function(data) {
         $('#sensorTable').html("");
         data.result.forEach(function(instance) {
-            $('#sensorTable').append(`<tr><td>${instance.date}</td><td>${instance.location}</td><td>${instance.sensor}</td><td>${instance.value}</td></tr>`)
+            let ending = "jpg";
+            if (instance.sensor == "2" || instance.sensor == "7") {
+                ending = "png";
+            }
+            $('#sensorTable').append(`<tr><td><img src="https://cse383-richa219.s3.amazonaws.com/sensor${instance.sensor}.${ending}" height="20px" width="20px">${instance.date}</td><td>${instance.location}</td><td>${instance.sensor}</td><td>${instance.value}</td></tr>`)
         });
         $('#sensorResults').css("height", `${~~(screen.height / 2.2)}`);
         $('#sensorResults').show();

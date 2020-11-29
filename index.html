@@ -75,10 +75,10 @@
                                     </div>
                                     <div class="col">
                                         <select class="form-control bg-transparent text-white" id="operation">
-                                            <option>+</option>
-                                            <option>-</option>
-                                            <option>*</option>
-                                            <option>/</option>
+                                            <option class="text-dark">+</option>
+                                            <option class="text-dark">-</option>
+                                            <option class="text-dark">*</option>
+                                            <option class="text-dark">/</option>
                                         </select>
                                     </div>
                                     <div class="col">
@@ -96,6 +96,9 @@
                                         </h2>
                                     </div>
                                 </div>
+                                <div class="text-center" id="calculateError" style="display: none;">
+                                    Please don't divide by 0.
+                                </div>
                             </form>
                         </div>
                         <div class="collapse" id="weatherCollapse">
@@ -103,7 +106,7 @@
                                 <div class="form-row">
                                     <div class="col"></div>
                                     <div class="col">
-                                        <input type="text" class="form-control bg-transparent" placeholder="Zip"
+                                        <input type="text" class="form-control bg-transparent text-white" placeholder="Zip"
                                             id="zip">
                                     </div>
                                     <div class="col">
@@ -121,13 +124,13 @@
                             <form id="sensorUpdateForm">
                                 <div class="form-row">
                                     <div class="col">
-                                        <input type="text" class="form-control bg-transparent" id="sensorLocation" placeholder="Location">
+                                        <input type="text" class="form-control bg-transparent text-white" id="sensorLocation" placeholder="Location">
                                     </div>
                                     <div class="col">
-                                        <input type="number" class="form-control bg-transparent" id="sensor" placeholder="Sensor">
+                                        <input type="number" class="form-control bg-transparent text-white" id="sensor" placeholder="Sensor" min="1" max="9">
                                     </div>
                                     <div class="col">
-                                        <input type="number" class="form-control bg-transparent" id="sensorValue" placeholder="Value">
+                                        <input type="number" class="form-control bg-transparent text-white" id="sensorValue" placeholder="Value">
                                     </div>
                                 </div>
                                 <div class="row justify-content-center spaced">
@@ -137,7 +140,7 @@
                                     </div>
                                 </div>
                                 <div class="text-center" id="sensorUpdateReport">
-                                    <button class="btn btn-primary spaced" onclick="$('#sensorCollapse').toggle();"
+                                    <button class="btn btn-primary spaced bg-transparent" onclick="$('#sensorCollapse').toggle();"
                                         id="toggleButtonSensor" style="display: none;">View Response</button>
                                     <div id="sensorCollapse" style="display: none;">
                                         Status: <p id="sensorStatus"></p>
@@ -154,12 +157,12 @@
                                         </select>
                                     </div>
                                     <div class="col">
-                                        <input type="text" class="form-control bg-transparent" id=updateLocation
+                                        <input type="text" class="form-control bg-transparent text-white" id=updateLocation
                                             aria-describedby="updateLocationOptional" placeholder="Location">
                                         <small id="updateLocationOptional" class="form-text text-muted"><p class="text-white">Optional</p></small>
                                     </div>
                                     <div class="col">
-                                        <input type="text" class="form-control bg-transparent" id=updateSensor
+                                        <input type="number" class="form-control bg-transparent text-white" id=updateSensor
                                             aria-describedby="updateSensorOptional" placeholder="Sensor">
                                         <small id="updateSensorOptional" class="form-text text-muted"><p class="text-white">Optional</p></small>
                                     </div>

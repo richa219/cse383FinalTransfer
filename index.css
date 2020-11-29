@@ -1,7 +1,7 @@
 /* Background generated with https://cssgradient.io/ */
 body {
     background: rgb(228,220,232);
-    background: linear-gradient(9deg, rgba(228,220,232,1) 0%, rgb(142, 52, 233) 86%);
+    background: linear-gradient(9deg, rgba(228,220,232,1) 0%, rgb(142, 52, 233) 100%);
     width: 100%;
     height:100vh;
 }
