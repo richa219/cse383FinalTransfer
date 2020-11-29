@@ -71,8 +71,10 @@ function submitCalculation() {
             op = "Add"
             break;
     }
-    if ($('#secondNum').val() == "0") {
-        $('#calculateError').show()
+    if ($('#secondNum').val() == "0" && $('#operation').val() == "/") {
+        $('#calculateError').show();
+    } else if ($('#secondNum').val() == "" || $('#firstNum').val() == "") {
+        $('#missingCalc').show();
     } else {
         $.ajax({
             url: `${calcURL}${op}?api_key=${apiKEY}&n1=${$('#firstNum').val()}&n2=${$('#secondNum').val()}`,
@@ -80,10 +82,10 @@ function submitCalculation() {
         }).done(function (data) {
             // console.log(data);
             $('#calculateError').hide()
+            $('#missingCalc').hide()
             $('#calcResult').html(`${$('#firstNum').val()} ${$('#operation').val()} ${$('#secondNum').val()} = ${data.result}`);
         }).fail(function (err) {
             console.log(err);
-            
         });
     }
 }
